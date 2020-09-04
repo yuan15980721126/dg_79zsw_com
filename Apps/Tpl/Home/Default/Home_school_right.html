@@ -1,0 +1,133 @@
+<?php 
+	$_GET[p] &&( $kcorder=M('kecheng')->where("school_id=$_GET[p]")->order('guanzhu desc')->limit('5')->select()) || ($kcorder=array());
+	
+	$new=M('new')->where('posid=7')->order('id desc')->limit('5')->select();
+?>
+
+			<div class="space-side">
+				<div class="online-bm school-info">
+					<h3><i></i>学校信息</h3>
+					<div class="info"> <b>{$schoolid.title}</b>
+						<p>详细地址：{$schoolid.address}</p>
+					</div>
+					<div class="space-kf">
+						<div class="mycall"><em><span class="">{$schoolid.dianhua}</span></em></div>
+						<p class="course-bar">
+							<a href="http://wpa.qq.com/msgrd?v=3&uin={$schoolid.QQ}&site=caimaozsw.com&menu=yes" class="qqzx" target="_blank" rel="nofollow" style="margin-right: 80px;">QQ咨询</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="sbox">
+					<div class="title">
+						<h3><i class="ico ico-distr"></i><span>热门课程</span></h3>
+						<a href="" class="more">更多>></a>
+					</div>
+					<ul class="hot-list space-hotkc">
+						<volist name='kcorder' id='r' key='k'>
+						<li><i class="n{$k}">0{$k}</i>
+							<PHP>
+								$url = explode(',', $r['url'])[0];
+								$url1 = '_'.$_GET['p'].'.html';
+							</PHP>
+							<p>
+								<a href="{$url}">{$r.title}</a>
+							</p>
+						</li>
+						</volist>
+						
+					</ul>
+				</div>
+				<div class="sbox">
+					<div class="title">
+						<h3><i class="ico ico-distr"></i><span>最新动态</span></h3>
+						<a href="/new/" class="more">更多>></a>
+					</div>
+					<ul class="hot-list space-hotkc hot-new">
+						<volist name='new' id='r'>
+							<li class="diandiandian"><a href="{$r.url}">{$r.title}</a></li>
+						</volist>
+						
+					</ul>
+				</div>
+				<div class="wa" >
+					<img src="/Uploads/201705/5929409fca920.jpg" alt="">
+					
+				</div>
+
+
+
+
+
+<style>	
+	.xxfk{
+		    width: 300px;
+		    margin: 0px auto;
+		    padding-bottom: 0px;
+		    position: fixed;
+		    right: 0px;
+		    top: 66%;
+		    background: #FFF;
+		    border: 1px solid #e5e5e5;
+		    border-radius: 5px;
+	}
+	
+	</style>
+	
+<div  class="xxfk">
+	
+			<div class="dw">
+				<div class="regist-title">学习课程、反馈问题请留言</div>
+				<form id="onlinec" action="{:URL('User-Post/insert')}" method="post" >        					
+					<input type="hidden"  name="catid" value="{$catid}" />
+					<input type="hidden" id="moduleid" name="moduleid" value="8" />
+					<input type="hidden" id="lang" name="lang" value="{$langid}" />
+				    <input type="hidden" id="title" name="title" value="信息反馈" />
+				    <input type="hidden" id="ref" name="ref" value="/" />
+					<ul class="clearfix">
+				        <li class="li1">
+				        	<input placeholder="职 业：" id="zhiye" name="zhiye" class="c-input" type="text" >
+				        </li>
+				        <li class="li2 nomgr">
+				        	<input placeholder="手 机：" id="telephone" name="telephone" class="c-input" type="number" >
+				        </li>
+				        <li class="li3">
+				        	<input placeholder="姓 名：" id="name" name="username" class="c-input" type="text" >
+				        </li>
+				        <li class="li4 nomgr">
+				        	<input placeholder="邮 箱：" id="email" name="email" class="c-input" type="email">
+				        </li>
+				        
+				        <li class="li5 nomgr clearfix">
+				            <textarea name="content" id="content" class="c-textarea lh22" placeholder="留 言：" ></textarea>
+				        </li>
+						<li class="li6 nomgr">
+							<input type="text" maxlength="4" name="verifyCode" class="input-text" class="inputbox"
+								   id="verifyCode" placeholder="请输入验证码"/>
+							<img id="verifyImage" class="checkcode" style="height: 35px; width: 70px;"
+								 src="{:U('Home/Index/verify')}" onclick="javascript:resetVerifyCode();" class="checkcode"
+								 title="{:L('resetVerifyCode')}"/>
+						</li>
+				        <li class="li6 nomgr">
+				            <button type="submit" class="sub-btn">发送</button></button>
+				        </li>
+				    </ul>
+				</form>
+			</div>
+		</div>
+		
+		<div class="clear"></div>
+	</div>
+
+
+
+
+			</div>
+<script type="text/javascript" src="../Public/js/jquery.validation.min.js"></script>
+
+<script type="text/javascript">
+    function resetVerifyCode(){
+        var timenow = new Date().getTime();
+        document.getElementById('verifyImage').src='./index.php?g=Home&m=Index&a=verify#'+timenow;
+    }
+</script>
